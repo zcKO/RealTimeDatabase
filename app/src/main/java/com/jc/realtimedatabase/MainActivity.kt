@@ -1,9 +1,11 @@
 package com.jc.realtimedatabase
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.jc.realtimedatabase.adapter.ChattingRecyclerAdapter
 import com.jc.realtimedatabase.data.ChattingData
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
@@ -15,6 +17,8 @@ class MainActivity : BaseActivity() {
     var messageCount = 0L
 
     val mChattingList = ArrayList<ChattingData>()
+
+    lateinit var mAdapter: ChattingRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,8 @@ class MainActivity : BaseActivity() {
                     )
                 )
 
+                mAdapter.notifyDataSetChanged()
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -72,6 +78,9 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
+        mAdapter = ChattingRecyclerAdapter(this, mChattingList)
+        chattingRecyclerView.adapter = mAdapter
+        chattingRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 }
