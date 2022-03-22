@@ -9,7 +9,7 @@ class MainActivity : BaseActivity() {
 
         setEvents()
         setValues()
-        
+
     }
 
     override fun setEvents() {
@@ -17,6 +17,8 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        // DB 연결 -> 값 기록 연습
 
     }
 }
