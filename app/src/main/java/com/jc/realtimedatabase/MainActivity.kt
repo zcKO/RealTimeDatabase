@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.jc.realtimedatabase.data.ChattingData
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,6 +13,8 @@ class MainActivity : BaseActivity() {
 
     // db 에 저장된 채팅 갯수를 담을 변수
     var messageCount = 0L
+
+    val mChattingList = ArrayList<ChattingData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,14 @@ class MainActivity : BaseActivity() {
                 // snapshot 변수 : 현재 변경된 상태를 알려준다. => 자녀가 몇개인지 추출.
                 messageCount = snapshot.childrenCount
 
+                // snapshot => 마지막 자녀 (최신으로 올라온 메세지) 추출 => chattingData 로 변환 + 목록에 추가
+                // snapshot.children -> 모든 자녀들
+                mChattingList.add(
+                    ChattingData(
+                        snapshot.children.last().child("content").value.toString(),
+                        snapshot.children.last().child("createdAt").value.toString()
+                    )
+                )
 
             }
 
