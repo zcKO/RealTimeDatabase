@@ -78,9 +78,9 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
-        mAdapter = ChattingRecyclerAdapter(this, mChattingList)
+        mAdapter = ChattingRecyclerAdapter(mContext, mChattingList)
         chattingRecyclerView.adapter = mAdapter
-        chattingRecyclerView.layoutManager = LinearLayoutManager(this)
+        chattingRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
     }
 }
